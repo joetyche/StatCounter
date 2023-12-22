@@ -1,0 +1,27 @@
+main: io.github.joetyche
+name: StatCounter
+version: '1.0'
+api-version: 1.19.2
+description: Stats counter
+author: JoeTyche
+website: github.com/joetyche
+
+commands: []
+  # foo:
+  #   description: Foo command
+  #   aliases:
+  #   - foobar
+  #   - fubar
+  #   permission: test.foo
+  #   permission-message: You do not have permission!
+  #   usage: /<command> [test|stop]
+
+permissions: []
+  # test.foo:
+  #   description: Allows foo command
+  #   default: op
+  # test.*:
+  #   description: Wildcard permission
+  #   default: op
+  #   children:
+  #     test.foo: true

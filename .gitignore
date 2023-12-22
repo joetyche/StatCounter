@@ -1,5 +1,7 @@
 # Compiled class file
 *.class
+/target/
+/META-INF/
 
 # Log file
 *.log
