@@ -9,12 +9,12 @@ import org.bukkit.Bukkit;
  * This class provides a HashMap of UUIDs against statMaps (a map of stat IDs to values). It's
  * purpose is to reduce SQL queries by caching results.
  */
-public abstract class MapPlayerStatController implements IPlayerStatController {
+public abstract class PlayerStatCache implements IPlayerStatController {
 
     private final HashMap<UUID, Map<Long, Double>> playerStatMap;
 
 
-    public MapPlayerStatController() {
+    public PlayerStatCache() {
         playerStatMap = new HashMap<>();
     }
 

@@ -7,12 +7,12 @@ import io.github.joetyche.util.StatCounterConfig;
  * This class handles the uploading and downloading of player's data to and from the SQL database,
  * whilst also updating the map cache.
  */
-public class SqlPlayerStatController extends MapPlayerStatController {
+public class PlayerStatSql extends PlayerStatCache {
 
     private StatCounterConfig statCounterConfig;
 
 
-    public SqlPlayerStatController(StatCounterConfig statCounterConfig) {
+    public PlayerStatSql(StatCounterConfig statCounterConfig) {
         this.statCounterConfig = statCounterConfig;
     }
 
