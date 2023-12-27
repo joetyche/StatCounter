@@ -19,6 +19,13 @@ public class PlayerStatController {
         this.playerStatSql = playerStatSql;
     }
 
+    /**
+     * Updates the Sql & Cache with the provided parameters
+     * 
+     * @param uuid The user's UUID
+     * @param statID The desired statistic ID to update
+     * @param value The value to set
+     */
     public void setStat(UUID uuid, long statID, double value) {
         // TODO: In future, can do configurable option whether to upload to SQL
         // every time stats are set, periodically, etc.
@@ -30,6 +37,14 @@ public class PlayerStatController {
         playerStatCache.setStat(uuid, statID, value);
     }
 
+    /**
+     * Queries the desired statistic from the cache or loads it into the cache if it is not present
+     * 
+     * @param uuid The user's UUID
+     * @param statID The desired statistic ID to query
+     * @param defaultValue The value to return if none is set
+     * @return double The value for this user's queried stat
+     */
     public double getStat(UUID uuid, long statID, double defaultValue) {
         // If stat not present in local HashMap
         if (!playerStatCache.playerHasStatLoaded(uuid, statID)) {
@@ -44,6 +59,15 @@ public class PlayerStatController {
         return playerStatCache.getStat(uuid, statID, defaultValue);
     }
 
+    /**
+     * Queries the desired statistic from the cache or loads it into the cache if it is not present
+     * - uses the configured default return value
+     * 
+     * @param uuid The user's UUID
+     * @param statID The desired statistic ID to query
+     * @param defaultValue The value to return if none is set
+     * @return double The value for this user's queried stat
+     */
     public double getStat(UUID uuid, long statID) {
         return getStat(uuid, statID, statCounterConfig.getDefaultStatValue());
     }

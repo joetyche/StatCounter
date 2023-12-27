@@ -6,8 +6,12 @@ import java.util.UUID;
 import org.bukkit.Bukkit;
 
 /**
- * This class provides a HashMap of UUIDs against statMaps (a map of stat IDs to values). It's
- * purpose is to reduce SQL queries by caching results.
+ * Provides a HashMap of UUIDs against statMaps (a map of stat IDs to values). It's purpose is to
+ * reduce SQL queries by caching results.
+ * 
+ * @author Tyche
+ * @version 1.0
+ * @since 1.0
  */
 public abstract class PlayerStatCache implements IPlayerStatStorage {
 
@@ -19,6 +23,11 @@ public abstract class PlayerStatCache implements IPlayerStatStorage {
     }
 
 
+    /**
+     * @param uuid The user's UUID
+     * @param statID The desired statistic ID to update
+     * @param value The value to set
+     */
     @Override
     public void setStat(UUID uuid, long statID, double value) {
         // If player is not in playerStatMap, create empty HashMap for them now and store it
@@ -41,6 +50,13 @@ public abstract class PlayerStatCache implements IPlayerStatStorage {
         statMap.put(statID, value);
     }
 
+
+    /**
+     * @param uuid The user's UUID
+     * @param statID The desired statistic ID to query
+     * @param defaultValue The value to return if none is set
+     * @return double The value for this user's queried stat
+     */
     @Override
     public double getStat(UUID uuid, long statID, double defaultValue) {
         Map<Long, Double> statMap = playerStatMap.get(uuid);
@@ -55,6 +71,12 @@ public abstract class PlayerStatCache implements IPlayerStatStorage {
         return defaultValue;
     }
 
+
+    /**
+     * @param uuid The user's UUID
+     * @param statID The desired statistic ID to query
+     * @return boolean Whether the user's cached statmap has this statistic ID present
+     */
     public boolean playerHasStatLoaded(UUID uuid, long statID) {
         return playerStatMap.containsKey(uuid) ? playerStatMap.get(uuid).containsKey(statID)
                 : false;
