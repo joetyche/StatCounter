@@ -16,7 +16,7 @@ public class StatCounterConfig {
     }
 
     public int getDefaultStatValue() {
-        return plugin.getConfig().getInt("Default stat value", 0);
+        return getConfig().getInt("Default stat value", 0);
     }
 
 }
