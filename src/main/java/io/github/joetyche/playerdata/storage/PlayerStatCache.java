@@ -1,4 +1,4 @@
-package io.github.joetyche.playerdata;
+package io.github.joetyche.playerdata.storage;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,7 +9,7 @@ import org.bukkit.Bukkit;
  * This class provides a HashMap of UUIDs against statMaps (a map of stat IDs to values). It's
  * purpose is to reduce SQL queries by caching results.
  */
-public abstract class PlayerStatCache implements IPlayerStatController {
+public abstract class PlayerStatCache implements IPlayerStatStorage {
 
     private final HashMap<UUID, Map<Long, Double>> playerStatMap;
 
@@ -55,7 +55,7 @@ public abstract class PlayerStatCache implements IPlayerStatController {
         return defaultValue;
     }
 
-    protected boolean playerHasStatLoaded(UUID uuid, long statID) {
+    public boolean playerHasStatLoaded(UUID uuid, long statID) {
         return playerStatMap.containsKey(uuid) ? playerStatMap.get(uuid).containsKey(statID)
                 : false;
     }
