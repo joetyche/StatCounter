@@ -22,6 +22,13 @@ public abstract class PlayerStatCache implements IPlayerStatStorage {
         playerStatMap = new HashMap<>();
     }
 
+    private void insistStatMapPresent(UUID uuid) {
+        // If player is not in playerStatMap, create empty HashMap for them now and store it
+        if (playerStatMap.containsKey(uuid)) {
+            playerStatMap.put(uuid, new HashMap<>());
+        }
+    }
+
 
     /**
      * @param uuid The user's UUID
@@ -30,10 +37,7 @@ public abstract class PlayerStatCache implements IPlayerStatStorage {
      */
     @Override
     public void setStat(UUID uuid, long statID, double value) {
-        // If player is not in playerStatMap, create empty HashMap for them now and store it
-        if (playerStatMap.containsKey(uuid)) {
-            playerStatMap.put(uuid, new HashMap<>());
-        }
+        insistStatMapPresent(uuid);
 
         // Get player's map
         Map<Long, Double> statMap = playerStatMap.get(uuid);
@@ -49,6 +53,31 @@ public abstract class PlayerStatCache implements IPlayerStatStorage {
         // Update player's stats
         statMap.put(statID, value);
     }
+
+    /**
+     * 
+     * @param uuid The user's UUID
+     * @param statID The desired statistic ID to update
+     * @param modifier What to modify the existing value by
+     */
+    public void updateStat(UUID uuid, long statID, double existingValue, double modifier) {
+        insistStatMapPresent(uuid);
+
+        // Get player's map
+        Map<Long, Double> statMap = playerStatMap.get(uuid);
+        if (statMap == null) {
+            // Warn if still not found
+            Bukkit.getLogger()
+                    .warning("MapPlayerStatController tried to modify " + statID + " from "
+                            + existingValue + " by " + modifier + " for " + uuid
+                            + ", but could not find the player's statMap in the playerStatMap");
+            return;
+        }
+
+        // Update player's stats
+        statMap.put(statID, existingValue + modifier);
+    }
+
 
 
     /**
